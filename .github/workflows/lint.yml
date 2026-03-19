@@ -13,4 +13,9 @@ jobs:
             - args:
                 - '--frozen-lockfile'
                 - '--prefer-offline'
-      - run: pnpm exec eslint .
+      - name: eslint
+        run: pnpm exec eslint .
+      - name: oxlint
+        run: pnpm exec oxlint .
+      - name: type-check
+        run: pnpm type-check
