@@ -1,0 +1,21 @@
+on:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v5
+        with:
+          cache: true
+          run_install: |
+            - args:
+                - '--frozen-lockfile'
+                - '--prefer-offline'
+      - name: eslint
+        run: pnpm exec eslint .
+      - name: oxlint
+        run: pnpm exec oxlint .
+      - name: type-check
+        run: pnpm type-check
