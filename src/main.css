@@ -16,4 +16,22 @@
   h6 {
     @apply font-headings;
   }
+
+  header {
+    @apply flex w-full justify-center;
+  }
+
+  header > h1 {
+    @apply font-bold text-3xl sm:text-5xl md:text-6xl lg:text-7xl;
+  }
+
+  main {
+    @apply w-full max-w-4xl mx-auto;
+  }
+}
+
+@layer components {
+  #app {
+    @apply grid gap-8 grid-rows-[max-content_1fr];
+  }
 }
