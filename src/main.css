@@ -16,4 +16,66 @@
   h6 {
     @apply font-headings;
   }
+
+  header {
+    @apply flex w-full justify-center;
+  }
+
+  header > h1 {
+    @apply font-bold text-3xl sm:text-5xl md:text-6xl lg:text-7xl;
+  }
+
+  main {
+    @apply w-full max-w-4xl mx-auto flex flex-col gap-8 p-2;
+  }
+}
+
+@layer components {
+  #app {
+    @apply grid gap-8 grid-rows-[max-content_1fr];
+  }
+
+  .game-grid-size-form {
+    @apply flex gap-4 items-end;
+  }
+
+  .game-grid-size-form fieldset {
+    @apply flex flex-col gap-1 min-w-fit;
+  }
+
+  .game-grid-size-form label {
+    @apply text-sm;
+  }
+
+  .game-grid-size-form input {
+    @apply px-2 py-1 h-10 rounded-md border border-neutral-500 outline-none focus:border-sky-500 invalid:border-red-500 invalid:focus:border-red-500;
+  }
+
+  .game-grid-size-form button {
+    @apply rounded-md px-4 py-1 h-10 bg-blue-500 text-white cursor-pointer hover:bg-blue-600 disabled:opacity-75 disabled:cursor-not-allowed disabled:hover:bg-blue-500 inline-flex gap-1 items-center;
+  }
+
+  .game-grid-size-form button svg {
+    @apply w-6 h-6;
+  }
+
+  .game-grid {
+    @apply w-full aspect-square flex flex-col gap-1;
+  }
+
+  .game-grid-row {
+    @apply flex flex-1 gap-1;
+  }
+
+  .game-grid-cell {
+    @apply flex-1 border rounded-md border-neutral-500 hover:cursor-pointer;
+  }
+
+  .game-grid-cell.is-alive {
+    @apply bg-neutral-500;
+  }
+
+  .game-grid-cell.disabled {
+    @apply cursor-not-allowed;
+  }
 }

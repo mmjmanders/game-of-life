@@ -1,11 +1,14 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import GameOfLife from '@/components/GameOfLife.vue'
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <header>
+    <h1>Conway's Game of Life</h1>
+  </header>
+  <main>
+    <GameOfLife />
+  </main>
 </template>
 
 <style scoped></style>
