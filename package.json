@@ -14,7 +14,10 @@
     "lint:eslint": "eslint . --fix --cache",
     "format": "prettier --write --experimental-cli src/",
     "prepare": "is-ci || husky",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "eslint": "eslint .",
+    "oxlint": "oxlint .",
+    "check": "run-p -l eslint oxlint type-check"
   },
   "dependencies": {
     "vue": "^3.5.30"
