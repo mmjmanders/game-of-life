@@ -5,6 +5,7 @@ import { toTypedSchema } from '@vee-validate/yup'
 import { useGameOfLifeStore } from '@/stores'
 import PlayArrowRoundedIcon from '@iconify-vue/material-symbols/play-arrow-rounded'
 import StopRoundedIcon from '@iconify-vue/material-symbols/stop-rounded'
+import SkipNextRoundedIcon from '@iconify-vue/material-symbols/skip-next-rounded'
 
 const { handleSubmit, defineField, meta } = useForm<GridSize>({
   validationSchema: toTypedSchema(gridSizeSchema),
@@ -42,6 +43,7 @@ const gameOfLife = useGameOfLifeStore()
     </fieldset>
     <button type="submit" :disabled="!meta.valid || gameOfLife.isSimulating">Create grid</button>
     <button type="button" :disabled="gameOfLife.isSimulating" @click="gameOfLife.nextGeneration()">
+      <SkipNextRoundedIcon />
       Next
     </button>
     <button type="button" v-if="!gameOfLife.isSimulating" @click="gameOfLife.startSimulation()">
