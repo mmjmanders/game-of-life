@@ -2,6 +2,9 @@
 import { useForm } from 'vee-validate'
 import { type GridSize, gridSizeSchema, MAX_GRID_SIZE, MIN_GRID_SIZE } from '@/types'
 import { toTypedSchema } from '@vee-validate/yup'
+import { useGameOfLifeStore } from '@/stores'
+import PlayArrowRoundedIcon from '@iconify-vue/material-symbols/play-arrow-rounded'
+import StopRoundedIcon from '@iconify-vue/material-symbols/stop-rounded'
 
 const { handleSubmit, defineField, meta } = useForm<GridSize>({
   validationSchema: toTypedSchema(gridSizeSchema),
@@ -19,6 +22,8 @@ const emit = defineEmits<{
 const onSubmit = handleSubmit(({ size }) => {
   emit('create-grid', size)
 })
+
+const gameOfLife = useGameOfLifeStore()
 </script>
 
 <template>
@@ -35,7 +40,15 @@ const onSubmit = handleSubmit(({ size }) => {
         :max="MAX_GRID_SIZE"
       />
     </fieldset>
-    <button type="submit" :disabled="!meta.valid">Create grid</button>
+    <button type="submit" :disabled="!meta.valid || gameOfLife.isSimulating">Create grid</button>
+    <button type="button" v-if="!gameOfLife.isSimulating" @click="gameOfLife.startSimulation()">
+      <PlayArrowRoundedIcon />
+      Start
+    </button>
+    <button type="button" v-if="gameOfLife.isSimulating" @click="gameOfLife.stopSimulation()">
+      <StopRoundedIcon />
+      Stop
+    </button>
   </form>
 </template>
 

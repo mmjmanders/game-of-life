@@ -7,6 +7,8 @@ export const useGameOfLifeStore = defineStore('game-of-life', () => {
 
   const grid = ref<Grid>()
   const size = computed<number>(() => Math.sqrt(grid.value?.length || 0))
+  const interval = ref<number>()
+  const isSimulating = computed<boolean>(() => interval.value !== undefined)
 
   function init(size: number) {
     if (size <= 0) throw Error('Size must be greater than 0')
@@ -37,5 +39,16 @@ export const useGameOfLifeStore = defineStore('game-of-life', () => {
     return grid.value![y * size.value! + x] === 1
   }
 
-  return { grid, init, toggleCell, size, isAlive }
+  function startSimulation() {
+    interval.value = setInterval(() => {}, 1000)
+  }
+
+  function stopSimulation() {
+    if (interval.value) {
+      clearInterval(interval.value)
+      interval.value = undefined
+    }
+  }
+
+  return { grid, init, toggleCell, size, isAlive, isSimulating, startSimulation, stopSimulation }
 })

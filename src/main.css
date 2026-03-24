@@ -51,8 +51,12 @@
     @apply px-2 py-1 h-10 rounded-md border border-neutral-500 outline-none focus:border-sky-500 invalid:border-red-500 invalid:focus:border-red-500;
   }
 
-  .game-grid-size-form button[type='submit'] {
-    @apply rounded-md px-4 py-1 h-10 bg-blue-500 text-white cursor-pointer hover:bg-blue-600 disabled:opacity-75 disabled:cursor-not-allowed disabled:hover:bg-blue-500;
+  .game-grid-size-form button {
+    @apply rounded-md px-4 py-1 h-10 bg-blue-500 text-white cursor-pointer hover:bg-blue-600 disabled:opacity-75 disabled:cursor-not-allowed disabled:hover:bg-blue-500 inline-flex gap-1 items-center;
+  }
+
+  .game-grid-size-form button svg {
+    @apply w-6 h-6;
   }
 
   .game-grid {
