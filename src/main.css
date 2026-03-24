@@ -1,0 +1,19 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter Variable', sans-serif;
+  --font-serif: 'Playfair Display Variable', serif;
+
+  --font-headings: var(--font-serif);
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-headings;
+  }
+}

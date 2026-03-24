@@ -12,12 +12,21 @@
     "lint": "run-s lint:*",
     "lint:oxlint": "oxlint . --fix",
     "lint:eslint": "eslint . --fix --cache",
-    "format": "prettier --write --experimental-cli src/"
+    "format": "prettier --write --experimental-cli src/",
+    "prepare": "is-ci || husky",
+    "lint-staged": "lint-staged",
+    "eslint": "eslint .",
+    "oxlint": "oxlint .",
+    "check": "run-p -l eslint oxlint type-check"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource-variable/playfair-display": "^5.2.8",
+    "tailwindcss": "^4.2.2",
     "vue": "^3.5.30"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.2.2",
     "@tsconfig/node24": "^24.0.4",
     "@types/node": "^24.12.0",
     "@vitejs/plugin-vue": "^6.0.4",
@@ -27,7 +36,10 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-oxlint": "~1.51.0",
     "eslint-plugin-vue": "~10.8.0",
+    "husky": "^9.1.7",
+    "is-ci": "^4.1.0",
     "jiti": "^2.6.1",
+    "lint-staged": "^16.4.0",
     "npm-run-all2": "^8.0.4",
     "oxlint": "~1.51.0",
     "prettier": "3.8.1",
