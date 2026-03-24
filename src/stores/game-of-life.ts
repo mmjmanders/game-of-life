@@ -36,6 +36,7 @@ export const useGameOfLifeStore = defineStore('game-of-life', () => {
 
   function startSimulation() {
     if (isSimulating.value) return
+    nextGeneration()
     interval.value = setInterval(() => nextGeneration(), 500)
   }
 

@@ -68,10 +68,14 @@
   }
 
   .game-grid-cell {
-    @apply flex-1 border rounded-md border-neutral-500;
+    @apply flex-1 border rounded-md border-neutral-500 hover:cursor-pointer;
   }
 
   .game-grid-cell.is-alive {
     @apply bg-neutral-500;
+  }
+
+  .game-grid-cell.disabled {
+    @apply cursor-not-allowed;
   }
 }
