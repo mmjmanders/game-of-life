@@ -1,0 +1,42 @@
+<script setup lang="ts">
+import { useForm } from 'vee-validate'
+import { type GridSize, gridSizeSchema, MAX_GRID_SIZE, MIN_GRID_SIZE } from '@/types'
+import { toTypedSchema } from '@vee-validate/yup'
+
+const { handleSubmit, defineField, meta } = useForm<GridSize>({
+  validationSchema: toTypedSchema(gridSizeSchema),
+  initialValues: {
+    size: 5,
+  },
+})
+
+const [gridSize, gridSizeAttrs] = defineField('size')
+
+const emit = defineEmits<{
+  'create-grid': [size: number]
+}>()
+
+const onSubmit = handleSubmit(({ size }) => {
+  emit('create-grid', size)
+})
+</script>
+
+<template>
+  <form @submit.prevent="onSubmit" novalidate class="game-grid-size-form">
+    <fieldset>
+      <label for="grid-size">Grid Size</label>
+      <input
+        id="grid-size"
+        v-model="gridSize"
+        v-bind="gridSizeAttrs"
+        type="number"
+        step="1"
+        :min="MIN_GRID_SIZE"
+        :max="MAX_GRID_SIZE"
+      />
+    </fieldset>
+    <button type="submit" :disabled="!meta.valid">Create grid</button>
+  </form>
+</template>
+
+<style scoped></style>
