@@ -1,22 +1,18 @@
 <script setup lang="ts">
 import GridSizeForm from './GridSizeForm.vue'
-import { useGameOfLife } from '@/composables'
+import { useGameOfLifeStore } from '@/stores'
 import GridComponent from './GridComponent.vue'
 
-const { grid, init, isAlive, size, toggleCell } = useGameOfLife()
+const gameOfLife = useGameOfLifeStore()
 
 const onCreateGrid = (size: number) => {
-  init(size)
-}
-
-const onToggleCell = (x: number, y: number) => {
-  toggleCell(x, y)
+  gameOfLife.init(size)
 }
 </script>
 
 <template>
   <GridSizeForm @create-grid="onCreateGrid" />
-  <GridComponent v-if="grid" :grid="grid" :size="size" @toggle-cell="onToggleCell" />
+  <GridComponent v-if="gameOfLife.grid" :grid="gameOfLife.grid" :size="gameOfLife.size" />
 </template>
 
 <style scoped></style>

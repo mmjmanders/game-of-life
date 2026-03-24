@@ -66,4 +66,8 @@
   .game-grid-cell {
     @apply flex-1 border rounded-md border-neutral-500;
   }
+
+  .game-grid-cell.is-alive {
+    @apply bg-neutral-500;
+  }
 }

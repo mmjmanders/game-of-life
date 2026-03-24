@@ -1,20 +1,23 @@
 <script setup lang="ts">
-defineProps<{
+import { useGameOfLifeStore } from '@/stores'
+import { computed } from 'vue'
+
+const props = defineProps<{
   row: number
   col: number
 }>()
 
-const emit = defineEmits<{
-  'toggle-cell': [x: number, y: number]
-}>()
+const gameOfLife = useGameOfLifeStore()
 
-const onToggleCell = (x: number, y: number) => {
-  emit('toggle-cell', x, y)
+const onClickCell = (x: number, y: number) => {
+  gameOfLife.toggleCell(x, y)
 }
+
+const isAlive = computed(() => gameOfLife.isAlive(props.row, props.col))
 </script>
 
 <template>
-  <div class="game-grid-cell" @click="onToggleCell(row, col)">{{ row }}-{{ col }}</div>
+  <div class="game-grid-cell" :class="{ 'is-alive': isAlive }" @click="onClickCell(row, col)" />
 </template>
 
 <style scoped></style>
