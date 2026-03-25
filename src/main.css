@@ -60,11 +60,11 @@
   }
 
   .game-grid {
-    @apply w-full aspect-square flex flex-col gap-1;
+    @apply w-full aspect-square flex flex-col gap-0.5 border-2 rounded-md border-neutral-500 p-1;
   }
 
   .game-grid-row {
-    @apply flex flex-1 gap-1;
+    @apply flex flex-1 gap-0.5;
   }
 
   .game-grid-cell {
