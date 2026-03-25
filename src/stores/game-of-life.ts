@@ -3,6 +3,8 @@ import type { Grid } from '@/types'
 import { computed, ref } from 'vue'
 
 export const useGameOfLifeStore = defineStore('game-of-life', () => {
+  const cache = new Map<string, Grid>()
+
   const grid = ref<Grid>()
   const size = computed<number>(() => Math.sqrt(grid.value?.length || 0))
   const interval = ref<number>()
@@ -68,19 +70,25 @@ export const useGameOfLifeStore = defineStore('game-of-life', () => {
   function nextGeneration() {
     if (!initialized.value) throw Error('Grid not initialized')
 
-    const nextGrid = new Uint8Array(grid.value!.length)
-    for (let y = 0; y < size.value!; y++) {
-      for (let x = 0; x < size.value!; x++) {
-        const neighbors = countAliveNeighbors(x, y)
-        const alive = isAlive(x, y)
-        if (neighbors === 3 || (alive && neighbors === 2)) {
-          nextGrid[y * size.value! + x] = 1
-        } else {
-          nextGrid[y * size.value! + x] = 0
+    const key = btoa(String.fromCharCode(...grid.value!))
+    if (cache.has(key)) {
+      grid.value = cache.get(key)!
+    } else {
+      const nextGrid = new Uint8Array(grid.value!.length)
+      for (let y = 0; y < size.value!; y++) {
+        for (let x = 0; x < size.value!; x++) {
+          const neighbors = countAliveNeighbors(x, y)
+          const alive = isAlive(x, y)
+          if (neighbors === 3 || (alive && neighbors === 2)) {
+            nextGrid[y * size.value! + x] = 1
+          } else {
+            nextGrid[y * size.value! + x] = 0
+          }
         }
       }
+      cache.set(key, nextGrid)
+      grid.value = nextGrid
     }
-    grid.value = nextGrid
   }
 
   function startSelecting() {
