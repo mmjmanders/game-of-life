@@ -36,11 +36,11 @@
   }
 
   .game-grid-size-form {
-    @apply flex gap-4 items-end;
+    @apply flex gap-4 sm:items-end flex-col sm:flex-row;
   }
 
   .game-grid-size-form fieldset {
-    @apply flex flex-col gap-1 min-w-fit;
+    @apply flex flex-col gap-1 w-full sm:flex-1;
   }
 
   .game-grid-size-form label {
@@ -52,7 +52,7 @@
   }
 
   .game-grid-size-form button {
-    @apply rounded-md px-4 py-1 h-10 bg-blue-500 text-white cursor-pointer hover:bg-blue-600 disabled:opacity-75 disabled:cursor-not-allowed disabled:hover:bg-blue-500 inline-flex gap-1 items-center;
+    @apply w-full sm:flex-1 rounded-md px-4 py-1 h-10 bg-blue-500 text-white cursor-pointer hover:bg-blue-600 disabled:opacity-75 disabled:cursor-not-allowed disabled:hover:bg-blue-500 inline-flex gap-1 items-center;
   }
 
   .game-grid-size-form button svg {
