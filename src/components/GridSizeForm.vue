@@ -42,11 +42,20 @@ const gameOfLife = useGameOfLifeStore()
       />
     </fieldset>
     <button type="submit" :disabled="!meta.valid || gameOfLife.isSimulating">Create grid</button>
-    <button type="button" :disabled="gameOfLife.isSimulating" @click="gameOfLife.nextGeneration()">
+    <button
+      type="button"
+      :disabled="gameOfLife.isSimulating || !gameOfLife.grid"
+      @click="gameOfLife.nextGeneration()"
+    >
       <SkipNextRoundedIcon />
       Next
     </button>
-    <button type="button" v-if="!gameOfLife.isSimulating" @click="gameOfLife.startSimulation()">
+    <button
+      type="button"
+      v-if="!gameOfLife.isSimulating"
+      :disabled="!gameOfLife.grid"
+      @click="gameOfLife.startSimulation()"
+    >
       <PlayArrowRoundedIcon />
       Start
     </button>
