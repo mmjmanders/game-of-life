@@ -73,7 +73,7 @@ export default defineConfig({
             },
             {
               name: 'icons',
-              test: /node_modules\/@iconify-vue/,
+              test: /node_modules\/@fortawesome/,
             },
             {
               name: 'forms',
