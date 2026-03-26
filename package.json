@@ -33,6 +33,7 @@
     "yup": "^1.7.1"
   },
   "devDependencies": {
+    "@prettier/plugin-xml": "^3.4.2",
     "@tailwindcss/vite": "^4.2.2",
     "@tsconfig/node24": "^24.0.4",
     "@types/node": "^24.12.0",
