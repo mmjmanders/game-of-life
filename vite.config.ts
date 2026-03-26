@@ -58,4 +58,30 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  build: {
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            {
+              name: 'vendor',
+              test: /node_modules\/(vue|pinia)/,
+            },
+            {
+              name: 'fonts',
+              test: /node_modules\/@fontsource/,
+            },
+            {
+              name: 'icons',
+              test: /node_modules\/@iconify-vue/,
+            },
+            {
+              name: 'forms',
+              test: /node_modules\/(@vee-validate|vee-validate|yup)/,
+            },
+          ],
+        },
+      },
+    },
+  },
 })
