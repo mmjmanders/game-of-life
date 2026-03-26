@@ -5,74 +5,103 @@
   --font-serif: 'Playfair Display Variable', serif;
 
   --font-headings: var(--font-serif);
+
+  --color-neon-green: #39ff14;
+  --color-neon-blue: #00d2ff;
+  --color-dark-bg: #0a0a0c;
+  --color-panel-bg: #151518;
+  --color-panel-border: #2a2a2e;
 }
 
 @layer base {
+  body {
+    @apply bg-dark-bg text-neutral-100 min-h-screen font-sans;
+  }
+
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    @apply font-headings;
+    @apply font-headings tracking-wider uppercase text-neon-blue drop-shadow-[0_0_8px_rgba(0,210,255,0.4)];
   }
 
   header {
-    @apply flex w-full justify-center;
+    @apply flex w-full justify-center pt-8 pb-4;
   }
 
   header > h1 {
-    @apply font-bold text-3xl sm:text-5xl md:text-6xl lg:text-7xl;
+    @apply font-bold text-2xl sm:text-4xl md:text-5xl lg:text-7xl;
   }
 
   main {
-    @apply w-full max-w-4xl mx-auto flex flex-col gap-8 p-2;
+    @apply w-full max-w-5xl mx-auto flex flex-col gap-10 p-4;
   }
 }
 
 @layer components {
   #app {
-    @apply grid gap-8 grid-rows-[max-content_1fr];
+    @apply grid gap-6 grid-rows-[max-content_1fr];
   }
 
   .game-grid-size-form {
-    @apply flex gap-4 sm:items-end flex-col sm:flex-row;
+    @apply flex gap-4 sm:items-end flex-col lg:flex-row bg-panel-bg p-6 rounded-xl border border-panel-border shadow-xl;
+  }
+
+  .form-section {
+    @apply grid gap-4 w-full grid-cols-1 sm:grid-cols-2 sm:items-end;
   }
 
   .game-grid-size-form fieldset {
-    @apply flex flex-col gap-1 w-full sm:flex-1;
+    @apply flex flex-col gap-2 w-full sm:flex-1;
   }
 
   .game-grid-size-form label {
-    @apply text-sm;
+    @apply text-xs uppercase font-bold tracking-widest text-neutral-400;
   }
 
   .game-grid-size-form input {
-    @apply px-2 py-1 h-10 rounded-md border border-neutral-500 outline-none focus:border-sky-500 invalid:border-red-500 invalid:focus:border-red-500;
+    @apply px-4 py-2 h-12 rounded-lg bg-dark-bg border border-panel-border text-white outline-none focus:border-neon-blue focus:ring-1 focus:ring-neon-blue/30 transition-all duration-200 invalid:border-red-500 invalid:focus:border-red-500 appearance-none;
   }
 
   .game-grid-size-form button {
-    @apply w-full sm:flex-1 rounded-md px-4 py-1 h-10 bg-blue-500 text-white cursor-pointer hover:bg-blue-600 disabled:opacity-75 disabled:cursor-not-allowed disabled:hover:bg-blue-500 inline-flex gap-1 items-center;
+    @apply w-full sm:flex-1 rounded-lg px-6 py-2 h-12 bg-neutral-800 text-white font-bold uppercase tracking-wider text-sm cursor-pointer hover:bg-neutral-700 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-neutral-800 disabled:active:scale-100 inline-flex gap-2 items-center justify-center transition-all duration-200 border border-white/5;
   }
 
-  .game-grid-size-form button svg {
-    @apply w-6 h-6;
+  .game-grid-size-form button[type='submit'] {
+    @apply bg-neon-blue/20 text-neon-blue border-neon-blue/40 hover:bg-neon-blue/30 hover:border-neon-blue;
+  }
+
+  /* Control buttons (Start/Stop/Next) */
+  .game-grid-size-form button:not([type='submit']) {
+    @apply bg-neon-green/10 text-neon-green border-neon-green/30 hover:bg-neon-green/20 hover:border-neon-green;
+  }
+
+  /* Stop button specifically */
+  .game-grid-size-form button.stop-btn {
+    @apply bg-red-500/10 text-red-500 border-red-500/30 hover:bg-red-500/20 hover:border-red-500;
   }
 
   .game-grid {
-    @apply w-full aspect-square flex flex-col gap-0.5 border-2 rounded-md border-neutral-500 p-1;
+    @apply w-full aspect-square flex flex-col gap-1 border-4 rounded-xl border-panel-border p-2 bg-panel-bg shadow-2xl;
   }
 
   .game-grid-row {
-    @apply flex flex-1 gap-0.5;
+    @apply flex flex-1 gap-1;
   }
 
   .game-grid-cell {
-    @apply flex-1 border rounded-md border-neutral-500 hover:cursor-pointer;
+    @apply flex-1 border border-panel-border/30 rounded-sm bg-dark-bg/50 hover:bg-neon-blue/10 hover:border-neon-blue/30 hover:cursor-crosshair transition-all duration-150 relative overflow-hidden;
   }
 
   .game-grid-cell.is-alive {
-    @apply bg-neutral-500;
+    @apply bg-neon-green border-neon-green shadow-[0_0_15px_rgba(57,255,20,0.8)] z-10 scale-[1.05];
+  }
+
+  .game-grid-cell.is-alive::after {
+    content: '';
+    @apply absolute inset-0 bg-white/20 animate-pulse;
   }
 
   .game-grid-cell.disabled {

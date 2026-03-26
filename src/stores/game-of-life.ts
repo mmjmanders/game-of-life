@@ -17,23 +17,13 @@ export const useGameOfLifeStore = defineStore('game-of-life', () => {
     grid.value = new Uint8Array({ length: size * size })
   }
 
-  function checkCell(x: number, y: number) {
-    if (!initialized.value) {
-      throw Error('Grid not initialized')
-    } else if (x < 0 || x >= size.value || y < 0 || y >= size.value) {
-      throw Error('Invalid cell coordinates')
-    }
-  }
-
   function toggleCell(x: number, y: number) {
-    checkCell(x, y)
     const updated = new Uint8Array(grid.value!)
     updated[y * size.value! + x] = grid.value![y * size.value! + x] ? 0 : 1
     grid.value = updated
   }
 
   function isAlive(x: number, y: number): boolean {
-    checkCell(x, y)
     return grid.value![y * size.value! + x] === 1
   }
 
@@ -51,7 +41,6 @@ export const useGameOfLifeStore = defineStore('game-of-life', () => {
   }
 
   function countAliveNeighbors(x: number, y: number): number {
-    checkCell(x, y)
     let count = 0
     for (let dy = -1; dy <= 1; dy++) {
       for (let dx = -1; dx <= 1; dx++) {

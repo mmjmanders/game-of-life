@@ -3,9 +3,7 @@ import { useForm } from 'vee-validate'
 import { type GridSize, gridSizeSchema, MAX_GRID_SIZE, MIN_GRID_SIZE } from '@/types'
 import { toTypedSchema } from '@vee-validate/yup'
 import { useGameOfLifeStore } from '@/stores'
-import PlayArrowRoundedIcon from '@iconify-vue/material-symbols/play-arrow-rounded'
-import StopRoundedIcon from '@iconify-vue/material-symbols/stop-rounded'
-import SkipNextRoundedIcon from '@iconify-vue/material-symbols/skip-next-rounded'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const { handleSubmit, defineField, meta } = useForm<GridSize>({
   validationSchema: toTypedSchema(gridSizeSchema),
@@ -29,40 +27,49 @@ const gameOfLife = useGameOfLifeStore()
 
 <template>
   <form @submit.prevent="onSubmit" novalidate class="game-grid-size-form">
-    <fieldset>
-      <label for="grid-size">Grid Size</label>
-      <input
-        id="grid-size"
-        v-model="gridSize"
-        v-bind="gridSizeAttrs"
-        type="number"
-        step="1"
-        :min="MIN_GRID_SIZE"
-        :max="MAX_GRID_SIZE"
-      />
-    </fieldset>
-    <button type="submit" :disabled="!meta.valid || gameOfLife.isSimulating">Create grid</button>
-    <button
-      type="button"
-      :disabled="gameOfLife.isSimulating || !gameOfLife.grid"
-      @click="gameOfLife.nextGeneration()"
-    >
-      <SkipNextRoundedIcon />
-      Next
-    </button>
-    <button
-      type="button"
-      v-if="!gameOfLife.isSimulating"
-      :disabled="!gameOfLife.grid"
-      @click="gameOfLife.startSimulation()"
-    >
-      <PlayArrowRoundedIcon />
-      Start
-    </button>
-    <button type="button" v-if="gameOfLife.isSimulating" @click="gameOfLife.stopSimulation()">
-      <StopRoundedIcon />
-      Stop
-    </button>
+    <div class="form-section">
+      <fieldset>
+        <label for="grid-size">Grid Size</label>
+        <input
+          id="grid-size"
+          v-model="gridSize"
+          v-bind="gridSizeAttrs"
+          type="number"
+          step="1"
+          :min="MIN_GRID_SIZE"
+          :max="MAX_GRID_SIZE"
+        />
+      </fieldset>
+      <button type="submit" :disabled="!meta.valid || gameOfLife.isSimulating">Create grid</button>
+    </div>
+    <div class="form-section">
+      <button
+        type="button"
+        :disabled="gameOfLife.isSimulating || !gameOfLife.grid"
+        @click="gameOfLife.nextGeneration()"
+      >
+        <FontAwesomeIcon :icon="['fas', 'forward-step']" />
+        Next
+      </button>
+      <button
+        type="button"
+        v-if="!gameOfLife.isSimulating"
+        :disabled="!gameOfLife.grid"
+        @click="gameOfLife.startSimulation()"
+      >
+        <FontAwesomeIcon :icon="['fas', 'play']" />
+        Start
+      </button>
+      <button
+        type="button"
+        v-if="gameOfLife.isSimulating"
+        @click="gameOfLife.stopSimulation()"
+        class="stop-btn"
+      >
+        <FontAwesomeIcon :icon="['fas', 'stop']" />
+        Stop
+      </button>
+    </div>
   </form>
 </template>
 
