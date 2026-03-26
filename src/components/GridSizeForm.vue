@@ -29,40 +29,49 @@ const gameOfLife = useGameOfLifeStore()
 
 <template>
   <form @submit.prevent="onSubmit" novalidate class="game-grid-size-form">
-    <fieldset>
-      <label for="grid-size">Grid Size</label>
-      <input
-        id="grid-size"
-        v-model="gridSize"
-        v-bind="gridSizeAttrs"
-        type="number"
-        step="1"
-        :min="MIN_GRID_SIZE"
-        :max="MAX_GRID_SIZE"
-      />
-    </fieldset>
-    <button type="submit" :disabled="!meta.valid || gameOfLife.isSimulating">Create grid</button>
-    <button
-      type="button"
-      :disabled="gameOfLife.isSimulating || !gameOfLife.grid"
-      @click="gameOfLife.nextGeneration()"
-    >
-      <SkipNextRoundedIcon />
-      Next
-    </button>
-    <button
-      type="button"
-      v-if="!gameOfLife.isSimulating"
-      :disabled="!gameOfLife.grid"
-      @click="gameOfLife.startSimulation()"
-    >
-      <PlayArrowRoundedIcon />
-      Start
-    </button>
-    <button type="button" v-if="gameOfLife.isSimulating" @click="gameOfLife.stopSimulation()">
-      <StopRoundedIcon />
-      Stop
-    </button>
+    <div class="form-section">
+      <fieldset>
+        <label for="grid-size">Grid Size</label>
+        <input
+          id="grid-size"
+          v-model="gridSize"
+          v-bind="gridSizeAttrs"
+          type="number"
+          step="1"
+          :min="MIN_GRID_SIZE"
+          :max="MAX_GRID_SIZE"
+        />
+      </fieldset>
+      <button type="submit" :disabled="!meta.valid || gameOfLife.isSimulating">Create grid</button>
+    </div>
+    <div class="form-section">
+      <button
+        type="button"
+        :disabled="gameOfLife.isSimulating || !gameOfLife.grid"
+        @click="gameOfLife.nextGeneration()"
+      >
+        <SkipNextRoundedIcon />
+        Next
+      </button>
+      <button
+        type="button"
+        v-if="!gameOfLife.isSimulating"
+        :disabled="!gameOfLife.grid"
+        @click="gameOfLife.startSimulation()"
+      >
+        <PlayArrowRoundedIcon />
+        Start
+      </button>
+      <button
+        type="button"
+        v-if="gameOfLife.isSimulating"
+        @click="gameOfLife.stopSimulation()"
+        class="stop-btn"
+      >
+        <StopRoundedIcon />
+        Stop
+      </button>
+    </div>
   </form>
 </template>
 
