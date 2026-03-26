@@ -19,6 +19,7 @@ jobs:
       - run: VITE_APP_VERSION=$(git rev-parse --short HEAD) pnpm build-only
         env:
           BASE_PATH: /${{ github.event.repository.name }}/
+          VITE_GITHUB_REPOSITORY_URL: ${{ github.server_url }}/${{ github.repository }}
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist/
