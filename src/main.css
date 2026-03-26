@@ -32,7 +32,7 @@
   }
 
   header > h1 {
-    @apply font-bold text-2xl sm:text-4xl md:text-5xl lg:text-7xl;
+    @apply font-bold text-2xl sm:text-4xl md:text-5xl lg:text-7xl relative;
   }
 
   main {
@@ -106,5 +106,9 @@
 
   .game-grid-cell.disabled {
     @apply cursor-not-allowed;
+  }
+
+  .version {
+    @apply font-mono text-xs md:text-sm absolute right-2 md:right-4 -bottom-4 md:-bottom-6 text-neon-blue/60 lowercase;
   }
 }
