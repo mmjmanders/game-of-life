@@ -3,6 +3,7 @@
 @theme {
   --font-sans: 'Inter Variable', sans-serif;
   --font-serif: 'Playfair Display Variable', serif;
+  --font-mono: 'JetBrains Mono Variable', monospace;
 
   --font-headings: var(--font-serif);
 

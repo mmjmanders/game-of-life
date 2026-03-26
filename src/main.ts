@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import '@fontsource-variable/inter'
 import '@fontsource-variable/playfair-display'
+import '@fontsource-variable/jetbrains-mono'
 import './main.css'
 import App from './App.vue'
 import { createPinia } from 'pinia'
