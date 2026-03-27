@@ -71,7 +71,7 @@ export default defineConfig({
           groups: [
             {
               name: 'vendor',
-              test: /node_modules\/(vue|pinia)/,
+              test: /node_modules\/(vue|pinia)\//,
             },
             {
               name: 'fonts',
@@ -84,7 +84,6 @@ export default defineConfig({
             {
               name: 'forms',
               test: /node_modules\/(@vee-validate|vee-validate|yup|vuetify)/,
-              priority: 1,
             },
           ],
         },
