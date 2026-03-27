@@ -52,11 +52,7 @@ export default defineConfig({
       },
     }),
     tailwindcss(),
-    vuetify({
-      styles: {
-        configFile: 'src/settings.scss',
-      },
-    }),
+    vuetify(),
     vueDevTools(),
   ],
   resolve: {

@@ -11,10 +11,12 @@ export const useGameOfLifeStore = defineStore('game-of-life', () => {
   const isSimulating = computed<boolean>(() => interval.value !== undefined)
   const initialized = computed<boolean>(() => grid.value !== undefined && size.value !== undefined)
   const isSelecting = ref<boolean>(false)
-  const intervalMs = ref<number>(500)
+  const intervalMs = ref<number>()
 
-  function init(size: number) {
+  function init(size: number, speed: number) {
     if (size <= 0) throw Error('Size must be greater than 0')
+
+    intervalMs.value = 1000 - speed * 100
     grid.value = new Uint8Array({ length: size * size })
   }
 
@@ -28,12 +30,12 @@ export const useGameOfLifeStore = defineStore('game-of-life', () => {
     return grid.value![y * size.value! + x] === 1
   }
 
-  function startSimulation() {
+  function startSimulation(init: boolean = true) {
     if (interval.value) {
       clearInterval(interval.value)
       interval.value = undefined
     }
-    nextGeneration()
+    if (init) nextGeneration()
     interval.value = setInterval(() => nextGeneration(), intervalMs.value)
   }
 
@@ -92,12 +94,12 @@ export const useGameOfLifeStore = defineStore('game-of-life', () => {
     isSelecting.value = false
   }
 
-  function updateInterval(ms: number) {
-    intervalMs.value = ms
+  function updateSpeed(speed: number) {
+    intervalMs.value = 1000 - speed * 100
   }
 
-  watch(intervalMs, () => {
-    startSimulation()
+  watch(intervalMs, (value, oldValue) => {
+    if (oldValue && isSimulating.value && value !== oldValue) startSimulation(false)
   })
 
   return {
@@ -113,6 +115,6 @@ export const useGameOfLifeStore = defineStore('game-of-life', () => {
     isSelecting,
     startSelecting,
     stopSelecting,
-    updateInterval,
+    updateSpeed,
   }
 })

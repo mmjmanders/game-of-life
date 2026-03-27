@@ -2,6 +2,7 @@
 import type { Grid } from '@/types'
 import GridRow from './GridRow.vue'
 import { useGameOfLifeStore } from '@/stores'
+import { onUnmounted } from 'vue'
 
 defineProps<{
   grid: Grid
@@ -21,6 +22,10 @@ const stopSelecting = () => {
   if (gameOfLifeStore.isSimulating) return
   gameOfLifeStore.stopSelecting()
 }
+
+onUnmounted(() => {
+  gameOfLifeStore.stopSimulation()
+})
 </script>
 
 <template>

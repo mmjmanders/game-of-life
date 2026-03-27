@@ -13,22 +13,22 @@ const { handleSubmit, defineField, meta } = useForm<GridSize>({
   },
 })
 
+const speed = ref<number>(5)
+
 const [gridSize, gridSizeAttrs] = defineField('size')
 
 const emit = defineEmits<{
-  'create-grid': [size: number]
+  'create-grid': [size: number, speed: number]
 }>()
 
 const onSubmit = handleSubmit(({ size }) => {
-  emit('create-grid', size)
+  emit('create-grid', size, speed.value)
 })
-
-const speed = ref<number>(5)
 
 const gameOfLife = useGameOfLifeStore()
 
 watch(speed, (newSpeed) => {
-  gameOfLife.updateInterval(2500 / newSpeed)
+  gameOfLife.updateSpeed(newSpeed)
 })
 </script>
 
@@ -87,12 +87,11 @@ watch(speed, (newSpeed) => {
         id="slider"
         class="game-grid-slider"
         v-model="speed"
-        min="1"
-        max="10"
+        min="0"
+        max="9"
         step="1"
       ></v-slider>
     </div>
-    <div>{{ speed }}</div>
   </form>
 </template>
 
