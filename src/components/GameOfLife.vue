@@ -5,8 +5,8 @@ import GridComponent from './GridComponent.vue'
 
 const gameOfLife = useGameOfLifeStore()
 
-const onCreateGrid = (size: number) => {
-  gameOfLife.init(size)
+const onCreateGrid = (size: number, speed: number) => {
+  gameOfLife.init(size, speed)
 }
 </script>
 

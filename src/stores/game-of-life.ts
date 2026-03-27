@@ -1,19 +1,22 @@
 import { defineStore } from 'pinia'
 import type { Grid } from '@/types'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 export const useGameOfLifeStore = defineStore('game-of-life', () => {
   const cache = new Map<string, Grid>()
 
+  const interval = ref<number>()
   const grid = ref<Grid>()
   const size = computed<number>(() => Math.sqrt(grid.value?.length || 0))
-  const interval = ref<number>()
   const isSimulating = computed<boolean>(() => interval.value !== undefined)
   const initialized = computed<boolean>(() => grid.value !== undefined && size.value !== undefined)
   const isSelecting = ref<boolean>(false)
+  const intervalMs = ref<number>()
 
-  function init(size: number) {
+  function init(size: number, speed: number) {
     if (size <= 0) throw Error('Size must be greater than 0')
+
+    intervalMs.value = 1000 - speed * 100
     grid.value = new Uint8Array({ length: size * size })
   }
 
@@ -27,10 +30,13 @@ export const useGameOfLifeStore = defineStore('game-of-life', () => {
     return grid.value![y * size.value! + x] === 1
   }
 
-  function startSimulation() {
-    if (isSimulating.value) return
-    nextGeneration()
-    interval.value = setInterval(() => nextGeneration(), 500)
+  function startSimulation(init: boolean = true) {
+    if (interval.value) {
+      clearInterval(interval.value)
+      interval.value = undefined
+    }
+    if (init) nextGeneration()
+    interval.value = setInterval(() => nextGeneration(), intervalMs.value)
   }
 
   function stopSimulation() {
@@ -88,6 +94,14 @@ export const useGameOfLifeStore = defineStore('game-of-life', () => {
     isSelecting.value = false
   }
 
+  function updateSpeed(speed: number) {
+    intervalMs.value = 1000 - speed * 100
+  }
+
+  watch(intervalMs, (value, oldValue) => {
+    if (oldValue && isSimulating.value && value !== oldValue) startSimulation(false)
+  })
+
   return {
     grid,
     init,
@@ -101,5 +115,6 @@ export const useGameOfLifeStore = defineStore('game-of-life', () => {
     isSelecting,
     startSelecting,
     stopSelecting,
+    updateSpeed,
   }
 })

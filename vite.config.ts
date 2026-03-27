@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { VitePWA } from 'vite-plugin-pwa'
 import tailwindcss from '@tailwindcss/vite'
+import vuetify from 'vite-plugin-vuetify'
 
 const { BASE_PATH } = process.env
 
@@ -51,6 +52,7 @@ export default defineConfig({
       },
     }),
     tailwindcss(),
+    vuetify(),
     vueDevTools(),
   ],
   resolve: {
@@ -65,7 +67,7 @@ export default defineConfig({
           groups: [
             {
               name: 'vendor',
-              test: /node_modules\/(vue|pinia)/,
+              test: /node_modules\/(vue|pinia)\//,
             },
             {
               name: 'fonts',
@@ -77,7 +79,7 @@ export default defineConfig({
             },
             {
               name: 'forms',
-              test: /node_modules\/(@vee-validate|vee-validate|yup)/,
+              test: /node_modules\/(@vee-validate|vee-validate|yup|vuetify)/,
             },
           ],
         },
