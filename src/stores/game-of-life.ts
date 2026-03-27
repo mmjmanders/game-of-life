@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import type { Grid } from '@/types'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 export const useGameOfLifeStore = defineStore('game-of-life', () => {
   const cache = new Map<string, Grid>()
@@ -11,6 +11,7 @@ export const useGameOfLifeStore = defineStore('game-of-life', () => {
   const isSimulating = computed<boolean>(() => interval.value !== undefined)
   const initialized = computed<boolean>(() => grid.value !== undefined && size.value !== undefined)
   const isSelecting = ref<boolean>(false)
+  const intervalMs = ref<number>(500)
 
   function init(size: number) {
     if (size <= 0) throw Error('Size must be greater than 0')
@@ -28,13 +29,12 @@ export const useGameOfLifeStore = defineStore('game-of-life', () => {
   }
 
   function startSimulation() {
-    if (isSimulating.value) return
     if (interval.value) {
       clearInterval(interval.value)
       interval.value = undefined
     }
     nextGeneration()
-    interval.value = setInterval(() => nextGeneration(), 500)
+    interval.value = setInterval(() => nextGeneration(), intervalMs.value)
   }
 
   function stopSimulation() {
@@ -92,6 +92,14 @@ export const useGameOfLifeStore = defineStore('game-of-life', () => {
     isSelecting.value = false
   }
 
+  function updateInterval(ms: number) {
+    intervalMs.value = ms
+  }
+
+  watch(intervalMs, () => {
+    startSimulation()
+  })
+
   return {
     grid,
     init,
@@ -105,5 +113,6 @@ export const useGameOfLifeStore = defineStore('game-of-life', () => {
     isSelecting,
     startSelecting,
     stopSelecting,
+    updateInterval,
   }
 })
