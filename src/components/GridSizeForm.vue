@@ -90,6 +90,7 @@ watch(speed, (newSpeed) => {
         min="0"
         max="9"
         step="1"
+        thumb-size="16"
       ></v-slider>
     </div>
   </form>
