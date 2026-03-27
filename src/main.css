@@ -47,7 +47,7 @@
   }
 
   .game-grid-size-form {
-    @apply flex gap-4 sm:items-end flex-col  bg-panel-bg p-6 rounded-xl border border-panel-border shadow-xl;
+    @apply flex gap-4 flex-col  bg-panel-bg p-6 rounded-xl border border-panel-border shadow-xl;
   }
 
   .form-row {
@@ -111,6 +111,14 @@
 
   .game-grid-cell.disabled {
     @apply cursor-not-allowed;
+  }
+
+  .game-grid-slider-container {
+    @apply w-full flex flex-col gap-2;
+  }
+
+  .game-grid-slider {
+    @apply w-full;
   }
 
   .version {

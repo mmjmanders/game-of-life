@@ -52,7 +52,7 @@ export default defineConfig({
       },
     }),
     tailwindcss(),
-    vuetify({ autoImport: false }),
+    vuetify(),
     vueDevTools(),
   ],
   resolve: {

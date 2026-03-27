@@ -4,11 +4,11 @@ import { computed, ref } from 'vue'
 
 export const useGameOfLifeStore = defineStore('game-of-life', () => {
   const cache = new Map<string, Grid>()
-  let interval: number | undefined = undefined
 
+  const interval = ref<number>()
   const grid = ref<Grid>()
   const size = computed<number>(() => Math.sqrt(grid.value?.length || 0))
-  const isSimulating = computed<boolean>(() => interval !== undefined)
+  const isSimulating = computed<boolean>(() => interval.value !== undefined)
   const initialized = computed<boolean>(() => grid.value !== undefined && size.value !== undefined)
   const isSelecting = ref<boolean>(false)
 
@@ -29,18 +29,18 @@ export const useGameOfLifeStore = defineStore('game-of-life', () => {
 
   function startSimulation() {
     if (isSimulating.value) return
-    if (interval) {
-      clearInterval(interval)
-      interval = undefined
+    if (interval.value) {
+      clearInterval(interval.value)
+      interval.value = undefined
     }
     nextGeneration()
-    interval = setInterval(() => nextGeneration(), 500)
+    interval.value = setInterval(() => nextGeneration(), 500)
   }
 
   function stopSimulation() {
-    if (interval) {
-      clearInterval(interval)
-      interval = undefined
+    if (interval.value) {
+      clearInterval(interval.value)
+      interval.value = undefined
     }
   }
 
