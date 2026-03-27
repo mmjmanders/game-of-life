@@ -74,7 +74,7 @@ const gameOfLife = useGameOfLifeStore()
         </button>
       </div>
     </div>
-    <div v-show="gameOfLife.isSimulating" class="game-grid-slider-container">
+    <div class="game-grid-slider-container">
       <label for="slider">Speed</label>
       <v-slider id="slider" class="game-grid-slider"></v-slider>
     </div>

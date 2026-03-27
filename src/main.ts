@@ -9,7 +9,6 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faForwardStep, faPlay, faStop } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { createVuetify } from 'vuetify'
-import 'vuetify/styles/colors'
 import { VSlider } from 'vuetify/components'
 
 library.add(faPlay, faStop, faForwardStep, faGithub)
