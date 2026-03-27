@@ -4,6 +4,7 @@ import { type GridSize, gridSizeSchema, MAX_GRID_SIZE, MIN_GRID_SIZE } from '@/t
 import { toTypedSchema } from '@vee-validate/yup'
 import { useGameOfLifeStore } from '@/stores'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { ref } from 'vue'
 
 const { handleSubmit, defineField, meta } = useForm<GridSize>({
   validationSchema: toTypedSchema(gridSizeSchema),
@@ -21,6 +22,8 @@ const emit = defineEmits<{
 const onSubmit = handleSubmit(({ size }) => {
   emit('create-grid', size)
 })
+
+const speed = ref<number>(5)
 
 const gameOfLife = useGameOfLifeStore()
 </script>
@@ -76,8 +79,16 @@ const gameOfLife = useGameOfLifeStore()
     </div>
     <div class="game-grid-slider-container">
       <label for="slider">Speed</label>
-      <v-slider id="slider" class="game-grid-slider"></v-slider>
+      <v-slider
+        id="slider"
+        class="game-grid-slider"
+        v-model="speed"
+        min="2"
+        max="10"
+        step="1"
+      ></v-slider>
     </div>
+    <div>{{ speed }}</div>
   </form>
 </template>
 
