@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { VitePWA } from 'vite-plugin-pwa'
 import tailwindcss from '@tailwindcss/vite'
+import vuetify from 'vite-plugin-vuetify'
 
 const { BASE_PATH } = process.env
 
@@ -51,6 +52,7 @@ export default defineConfig({
       },
     }),
     tailwindcss(),
+    vuetify({ autoImport: false }),
     vueDevTools(),
   ],
   resolve: {
@@ -77,7 +79,8 @@ export default defineConfig({
             },
             {
               name: 'forms',
-              test: /node_modules\/(@vee-validate|vee-validate|yup)/,
+              test: /node_modules\/(@vee-validate|vee-validate|yup|vuetify)/,
+              priority: 1,
             },
           ],
         },

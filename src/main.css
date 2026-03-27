@@ -47,7 +47,11 @@
   }
 
   .game-grid-size-form {
-    @apply flex gap-4 sm:items-end flex-col lg:flex-row bg-panel-bg p-6 rounded-xl border border-panel-border shadow-xl;
+    @apply flex gap-4 sm:items-end flex-col  bg-panel-bg p-6 rounded-xl border border-panel-border shadow-xl;
+  }
+
+  .form-row {
+    @apply w-full flex flex-col lg:flex-row gap-4;
   }
 
   .form-section {
