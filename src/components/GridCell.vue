@@ -7,25 +7,22 @@ const props = defineProps<{
   col: number
 }>()
 
-const gameOfLife = useGameOfLifeStore()
+const store = useGameOfLifeStore()
 
-const onToggleCell = (e: MouseEvent) => {
-  if (gameOfLife.isSimulating) return
-  if (gameOfLife.isSelecting) {
-    const { row, col } = (e.target as HTMLElement).dataset
-    gameOfLife.toggleCell(Number(row), Number(col))
+const onToggleCell = () => {
+  if (store.isSimulating) return
+  if (store.isSelecting) {
+    store.toggleCell(props.row, props.col)
   }
 }
 
-const isAlive = computed(() => gameOfLife.isAlive(props.row, props.col))
+const isAlive = computed(() => store.isAlive(props.row, props.col))
 </script>
 
 <template>
   <div
     class="game-grid-cell"
-    :class="{ 'is-alive': isAlive, disabled: gameOfLife.isSimulating }"
-    :data-row="row"
-    :data-col="col"
+    :class="{ 'is-alive': isAlive, disabled: store.isSimulating }"
     @mouseenter="onToggleCell"
   />
 </template>

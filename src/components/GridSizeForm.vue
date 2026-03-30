@@ -25,10 +25,10 @@ const onSubmit = handleSubmit(({ size }) => {
   emit('create-grid', size, speed.value)
 })
 
-const gameOfLife = useGameOfLifeStore()
+const store = useGameOfLifeStore()
 
 watch(speed, (newSpeed) => {
-  gameOfLife.updateSpeed(newSpeed)
+  store.updateSpeed(newSpeed)
 })
 </script>
 
@@ -48,32 +48,30 @@ watch(speed, (newSpeed) => {
             :max="MAX_GRID_SIZE"
           />
         </fieldset>
-        <button type="submit" :disabled="!meta.valid || gameOfLife.isSimulating">
-          Create grid
-        </button>
+        <button type="submit" :disabled="!meta.valid || store.isSimulating">Create grid</button>
       </div>
       <div class="form-section">
         <button
           type="button"
-          :disabled="gameOfLife.isSimulating || !gameOfLife.grid"
-          @click="gameOfLife.nextGeneration()"
+          :disabled="store.isSimulating || !store.grid"
+          @click="store.nextGeneration()"
         >
           <FontAwesomeIcon :icon="['fas', 'forward-step']" />
           Next
         </button>
         <button
           type="button"
-          v-if="!gameOfLife.isSimulating"
-          :disabled="!gameOfLife.grid"
-          @click="gameOfLife.startSimulation()"
+          v-if="!store.isSimulating"
+          :disabled="!store.grid"
+          @click="store.startSimulation()"
         >
           <FontAwesomeIcon :icon="['fas', 'play']" />
           Start
         </button>
         <button
           type="button"
-          v-if="gameOfLife.isSimulating"
-          @click="gameOfLife.stopSimulation()"
+          v-if="store.isSimulating"
+          @click="store.stopSimulation()"
           class="stop-btn"
         >
           <FontAwesomeIcon :icon="['fas', 'stop']" />

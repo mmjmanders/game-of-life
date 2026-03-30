@@ -1,30 +1,22 @@
 <script setup lang="ts">
-import type { Grid } from '@/types'
 import GridRow from './GridRow.vue'
 import { useGameOfLifeStore } from '@/stores'
 import { onUnmounted } from 'vue'
 
-defineProps<{
-  grid: Grid
-  size: number
-}>()
+const store = useGameOfLifeStore()
 
-const gameOfLifeStore = useGameOfLifeStore()
-
-const startSelecting = (e: MouseEvent) => {
-  if (gameOfLifeStore.isSimulating) return
-  const { row, col } = (e.target as HTMLElement).dataset
-  gameOfLifeStore.startSelecting()
-  gameOfLifeStore.toggleCell(Number(row), Number(col))
+const startSelecting = () => {
+  if (store.isSimulating) return
+  store.startSelecting()
 }
 
 const stopSelecting = () => {
-  if (gameOfLifeStore.isSimulating) return
-  gameOfLifeStore.stopSelecting()
+  if (store.isSimulating) return
+  store.stopSelecting()
 }
 
 onUnmounted(() => {
-  gameOfLifeStore.stopSimulation()
+  store.stopSimulation()
 })
 </script>
 
@@ -35,7 +27,7 @@ onUnmounted(() => {
     @mouseup="stopSelecting"
     @mouseleave="stopSelecting"
   >
-    <GridRow v-for="row in size" :key="row - 1" :row="row - 1" :size="size" />
+    <GridRow v-for="row in store.size" :key="row - 1" :row="row - 1" :size="store.size" />
   </div>
 </template>
 
